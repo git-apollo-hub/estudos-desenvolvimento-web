@@ -7,3 +7,4 @@
 // Percorra essa lista com foreach/forEach e, para cada produto, calcule e imprima o valor total (preco * quantidade). Exemplo: "Caderno: 3 unidades x R$ 15.90 = R$ 47.70".
 
 // Desafio extra: depois de percorrer todos os produtos, calcule e imprima a soma do valor total de todos os produtos juntos (você vai precisar de uma variável "acumuladora" fora do loop, que soma a cada repetição — isso é uma técnica clássica de loop que ainda não tínhamos praticado isoladamente).
+
