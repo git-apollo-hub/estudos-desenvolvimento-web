@@ -1,19 +1,4 @@
 <?php 
-// Crie um array associativo (PHP) / objeto (JS) representando um produto, com as chaves: nome, preco, quantidade.
-
-$unicoProduto = [
-    "nome" => "Caderno",
-    "preco" => 15.90,
-    "quantidade" => 3
-];
-
-// Imprima uma frase tipo: "Produto: Caderno, Preço: 15.90, Quantidade: 3".
-
-echo "Produto: {$unicoProduto['nome']}, Preço: R$" . number_format($unicoProduto['preco'], 2, ',', '.') . ", Quantidade: {$unicoProduto['quantidade']}." . PHP_EOL;
-
-echo "---" . PHP_EOL;
-
-// Crie um array de produtos (lista de 3 produtos, cada um com nome, preco, quantidade, igual o exemplo dos alunos acima).
 
 $produtos = [
     [
@@ -33,27 +18,28 @@ $produtos = [
 ]
 ];
 
-// Percorra essa lista com foreach/forEach e, para cada produto, calcule e imprima o valor total (preco * quantidade). Exemplo: "Caderno: 3 unidades x R$ 15.90 = R$ 47.70".
+echo "Use array_map para criar uma nova lista contendo só os nomes dos produtos (ex: ['Caderno', 'Lapis', 'Borracha'])." . PHP_EOL;
 
-$somaTotal = 0;
+$listaProdutos = array_map(function($produto) {
+    return $produto['nome'];
+}, $produtos);
 
-foreach ($produtos as $produto) {
+print_r($listaProdutos);
 
-    $valorTotal = $produto['preco'] * $produto['quantidade'];
+echo "Use array_filter para criar uma lista só com os produtos que tenham quantidade maior que 5." . PHP_EOL;
 
-    echo "Nome: " . $produto['nome'] . PHP_EOL;
-    echo "Preço: R$ " . number_format($produto['preco'], 2, ',', '.') . PHP_EOL;
-    echo "Quantidade: " . $produto['quantidade'] . PHP_EOL;
-    echo $produto['nome'] . ": " . $produto['quantidade'] . " unidades x R$ " . number_format($produto['preco'], 2, ',', '.') . " = R$ " . number_format($valorTotal, 2, ',', '.') . PHP_EOL;
+$quantidadeSupCinco = array_filter($produtos, function($produto) {
+    return $produto['quantidade'] > 5;
+});
 
-    echo "---" . PHP_EOL;
+print_r($quantidadeSupCinco);
 
-    $somaTotal += $valorTotal;
-    
-}
+echo "Use array_reduce para calcular a soma total dos valores (preco * quantidade) de todos os produtos — e compare se o resultado é igual ao que você já tinha calculado manualmente com foreach/forEach no exercício anterior." . PHP_EOL;
 
-// Desafio extra: depois de percorrer todos os produtos, calcule e imprima a soma do valor total de todos os produtos juntos (você vai precisar de uma variável "acumuladora" fora do loop, que soma a cada repetição — isso é uma técnica clássica de loop que ainda não tínhamos praticado isoladamente).
+$somaTotal = array_reduce($produtos, function($acumulador, $produto) {
+    return $acumulador + ($produto['preco'] * $produto['quantidade']);
+}, 0);
 
-echo "Valor total de todos os produtos: R$ " . number_format($somaTotal, 2, ',', '.') . PHP_EOL;
+echo "Soma total: R$ " . number_format($somaTotal, 2, ',', '.') . PHP_EOL;
 
 ?>
